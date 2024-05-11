@@ -19277,7 +19277,7 @@
                 return (0, r.useEffect)((function() {
                     if (!t) {
                         var e = new(re());
-                        window.chromeTabs = e, e.init(i.current), n(e);
+                        // window.chromeTabs = e, e.init(i.current), n(e);
                         var r = function() {
                                 var t = e.tabContentWidths.pop() + e.tabContentPositions.pop();
                                 isNaN(t) ? l.current.style.left = 0 : l.current.style.left = t + "px"
