@@ -1,7 +1,5 @@
 <html>
     <head>
-        <meta http-equiv="refresh" content="0; url=/prox/?uul=https://app.flamepass.com" />
-
     </head>
     <style>
         body{
@@ -9,3 +7,34 @@
         }
     </style>
 </html>
+<body>
+    <iframe id="frame"></iframe>
+    <script>
+   window.onload = function() {
+  // Get a reference to the iframe element
+  var iframe = document.getElementById("frame");
+
+  // Key used for local storage
+  var isFirstLoadKey = "isFirstLoad";
+
+  // Check if it's the first load from local storage
+  var isFirstLoad = !localStorage.getItem(isFirstLoadKey);
+
+  // Set the new URL as the default
+  iframe.src = "/prox/?uul=https://app.flamepass.com"; // Replace "https://www.example.org" with your new URL
+
+  if (isFirstLoad) {
+    // Set the initial iframe URL (only on first load)
+    iframe.src = "/prox/?uul=https://google.com"; // Replace "https://www.example.com" with your initial URL
+    localStorage.setItem(isFirstLoadKey, "true"); // Mark as not first load
+
+    // Wait 1 second before loading the new URL again (only on first load)
+    setTimeout(function() {
+      iframe.src = "/prox/?uul=https://app.flamepass.com"; // Replace "https://www.example.org" with your new URL
+    }, 1000);
+  }
+};
+
+
+    </script>
+</body>
