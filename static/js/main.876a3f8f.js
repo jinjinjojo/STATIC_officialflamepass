@@ -18583,28 +18583,6 @@
                     })
                 }
             }, {
-                host: "welcome",
-                title: "Welcome",
-                existsOnlyAtRoot: !0,
-                showSuggestions: !0,
-                Component: function(e) {
-                    var t = e.goToUrl;
-                    return (0, q.jsxs)("div", {
-                        className: "rhpages",
-                        children: [(0, q.jsx)("h1", {
-                            children: "Proxy Loaded. Welcome!"
-                        }), (0, q.jsxs)("p", {
-                            style: {
-                                fontSize: 20
-                            },
-                            children: ["This is a Flamepass premium link.", (0, q.jsx)(Tt, {
-                                goToUrl: t,
-                                href: ""
-                            }), ""]
-                        })]
-                    })
-                }
-            }, {
                 host: "changelog",
                 title: "Changelog",
                 existsOnlyAtRoot: !0,
@@ -18988,7 +18966,7 @@
                 return (0, q.jsx)("div", {
                     className: "rhpages",
                     children: (0, q.jsx)("h1", {
-                        children: "404 rammerhead not found"
+                        children: "404 Not Found"
                     })
                 })
             }
