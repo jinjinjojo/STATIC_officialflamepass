@@ -19294,7 +19294,7 @@
                                 // currentUrl: "rh://welcome/"
                             }),
                             function() {
-                                // i.current && (i.current.removeEventListener("activeTabChange", o), i.current.removeEventListener("tabRemove", a), window.removeEventListener("resize", r))
+                                i.current && (i.current.removeEventListener("activeTabChange", o), i.current.removeEventListener("tabRemove", a), window.removeEventListener("resize", r))
                             }
                     }
                 }), []), (0, q.jsxs)("div", {
