@@ -19291,7 +19291,7 @@
                                 r(), null !== (n = i.tabEl.state) && void 0 !== n && n.iframe && (clearInterval(i.tabEl.state.intervalId), i.tabEl.state.iframe.remove()), 0 === e.tabEls.length && u(null)
                             };
                         return i.current.addEventListener("activeTabChange", o), i.current.addEventListener("tabRemove", a), window.addEventListener("resize", r), e.addTab(), sessionStorage.getItem("rh-firstrun") && (sessionStorage.removeItem("rh-firstrun"), e.addTab(), e.activeTabEl.state = {
-                                currentUrl: "rh://welcome/"
+                                // currentUrl: "rh://welcome/"
                             }),
                             function() {
                                 i.current && (i.current.removeEventListener("activeTabChange", o), i.current.removeEventListener("tabRemove", a), window.removeEventListener("resize", r))
