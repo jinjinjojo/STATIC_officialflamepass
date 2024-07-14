@@ -18455,7 +18455,7 @@
                                 children: !n.ahProxyActive && (0, q.jsx)(It, {})
                             }), (0, q.jsx)("iframe", {
                                 class: "browser-tab-content-iframe",
-                                src: "/browser/iframe.html"
+                                src: "/dashboard/iframe/"
                             })]
                         }), (0, q.jsx)("p", {
                             className: "rhnewtab-msg",
