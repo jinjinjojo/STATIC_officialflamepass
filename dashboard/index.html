@@ -304,22 +304,43 @@ function loadMainFiles() {
 
   document.body.classList.remove('loading');
   
-  // Add the "Logout" and "Manage Membership" links dynamically
-  const logoutLink = document.createElement('a');
-  logoutLink.href = "#";
-  logoutLink.textContent = "Logout";
-  logoutLink.style.cssText = "color: #cccccc!important; position: absolute; z-index: 9999999; bottom: 40px; left: 10px; margin-bottom: 10px; margin-right: 10px;";
-  logoutLink.onclick = function() {
-    localStorage.removeItem('loginData');
-    location.reload();
-  };
-  document.body.appendChild(logoutLink);
-
+  // Add the "Logout", "Manage Membership" links, and logo dynamically
   const membershipLink = document.createElement('a');
   membershipLink.href = "https://billing.stripe.com/p/login/dR69CV76bgiH0wMeUU";
   membershipLink.textContent = "Manage Membership";
-  membershipLink.style.cssText = "color: #cccccc!important; position: absolute; z-index: 9999999; bottom: 10px; left: 10px; margin-bottom: 10px; margin-right: 10px;";
+  membershipLink.target = '_blank';
+  membershipLink.style.cssText = "text-shadow: 1px 1px 3px black; opacity:0.5; color: #ffffff!important; position: absolute; z-index: 9999999; bottom: 10px; left: 10px; margin-bottom: 10px; margin-right: 10px;";
   document.body.appendChild(membershipLink);
+
+  const logoImg = document.createElement('img');
+  logoImg.src = "/flamepass-full-logo.png";
+  logoImg.alt = "Flamepass"
+  logoImg.title = "Flamepass"
+  logoImg.style.cssText = "opacity: 0.5; position: absolute; z-index: 9999999; bottom: 75px; left: -3px; height: 40px;";
+  document.body.appendChild(logoImg);
+
+  const logoutLink = document.createElement('a');
+  logoutLink.href = "#";
+  logoutLink.textContent = "Logout";
+  logoutLink.style.cssText = "text-shadow: 1px 1px 3px black; opacity:0.5; color: #ffffff!important; position: absolute; z-index: 9999999; bottom: 40px; left: 10px; margin-bottom: 10px; margin-right: 10px;";
+  let logoutConfirmed = false;
+
+logoutLink.onclick = function(event) {
+  event.preventDefault();
+  if (!logoutConfirmed) {
+    logoutLink.textContent = "Logout - Are you sure?";
+    logoutConfirmed = true;
+    setTimeout(() => {
+      logoutLink.textContent = "Logout";
+      logoutConfirmed = false;
+    }, 3000); // Change text back to "Logout" after 3 seconds
+  } else {
+    localStorage.removeItem('loginData');
+    location.reload();
+  }
+};
+
+document.body.appendChild(logoutLink);
 }
 
 function showError(message, formType = 'login') {
