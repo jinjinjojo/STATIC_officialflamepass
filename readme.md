@@ -1,6 +1,6 @@
-# Flamepass Premium Static Unblocker Source Code
+# Flamepass Subscription-Only Static Unblocker 
 
-Flamepass Premium Link
+Flamepass Subscription-Only Link
 
 Made with Vexxed Browser (also a product by Flamepass Services)
 
