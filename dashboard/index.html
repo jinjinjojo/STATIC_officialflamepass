@@ -398,29 +398,7 @@ function showPricingSection() {
   document.getElementById('signup-section').style.display = 'none';
   document.getElementById('pricing-section').style.display = 'block';
   document.getElementById('error-message').style.display = 'none';
-  
-  // Add styling to invert colors
-  const pricingTable = document.querySelector('stripe-pricing-table');
-  if (pricingTable) {
-    pricingTable.style.backgroundColor = 'white';
-    pricingTable.style.color = 'black';
-
-    // Invert colors for all children elements
-    const elements = pricingTable.querySelectorAll('*');
-    elements.forEach(element => {
-      const computedStyle = window.getComputedStyle(element);
-      if (computedStyle.backgroundColor === 'rgba(0, 0, 0, 0)' || computedStyle.backgroundColor === 'transparent') {
-        element.style.backgroundColor = 'white';
-      }
-      if (computedStyle.color === 'rgb(255, 255, 255)') {
-        element.style.color = 'black';
-      } else if (computedStyle.color === 'rgb(0, 0, 0)') {
-        element.style.color = 'white';
-      }
-    });
-  }
 }
-
   </script>
 </body>
 </html>
