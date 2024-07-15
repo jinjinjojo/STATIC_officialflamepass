@@ -50,7 +50,7 @@
             <input type="email" id="email" name="email" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
           </div>
           <div>
-            <label for="token" class="block text-sm font-medium text-gray-700">Key:</label>
+            <label for="token" class="block text-sm font-medium text-gray-700">Token:</label>
             <input type="password" id="token" name="token" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
           </div>
           <div>
@@ -58,20 +58,20 @@
           </div>
         </form>
         <p class="mt-4 text-sm flex justify-between">
-          <a href="#" onclick="showResetForm()" class="text-blue-600 hover:underline">Forgot your Key?</a>
+          <a href="#" onclick="showResetForm()" class="text-blue-600 hover:underline">Forgot your token?</a>
           <a href="#" onclick="showSignUpSection()" class="text-blue-600 hover:underline">Sign Up</a>
         </p>
       </div>
 
       <div id="reset-form" style="display:none;">
-        <h2 class="text-2xl font-bold mb-4">Reset Key</h2>
+        <h2 class="text-2xl font-bold mb-4">Reset Token</h2>
         <form id="reset" onsubmit="return handleReset(event)" class="space-y-4">
           <div>
             <label for="reset-email" class="block text-sm font-medium text-gray-700">Enter your Email:</label>
             <input type="email" id="reset-email" name="reset-email" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
           </div>
           <div>
-            <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700">Reset Key</button>
+            <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700">Reset Token</button>
           </div>
         </form>
         <p class="mt-4 text-sm"><a href="#" onclick="showLoginForm()" class="text-blue-600 hover:underline">Go back</a></p>
@@ -104,6 +104,7 @@
   <script>
 function redirectToCheckout() {
   window.open("https://buy.stripe.com/7sI3duekygE6fSw003", '_blank').focus();
+
 }
 
 function saveLoginToLocalStorage(email, token) {
@@ -162,8 +163,8 @@ async function handleLogin(event) {
       saveLoginToLocalStorage(email, token);
       loadMainFiles();
     } else {
-      if (data.error === "Invalid Key") {
-        showError('Invalid Key.');
+      if (data.error === "Invalid token") {
+        showError('Invalid token.');
       } else if (data.error === "No customer found with this email") {
         showError('No customer found with this email.');
       } else {
@@ -205,13 +206,13 @@ async function handleReset(event) {
     document.getElementById('loading-message').style.display = 'none';
 
     if (data.success) {
-      alert('A reset key has been sent to your email.');
+      alert('A reset token has been sent to your email.');
       showLoginForm();
     } else {
-      showError('An error occurred while resetting your key.', 'reset');
+      showError('An error occurred while resetting the token.', 'reset');
     }
   } catch (error) {
-    showError('An error occurred while resetting your key.', 'reset');
+    showError('An error occurred while resetting the token.', 'reset');
   }
 
   updateRateLimit();
@@ -287,75 +288,26 @@ function loadMainFiles() {
     linkCSS.href = '/static/css/main.274aab96.css';
     linkCSS.rel = 'stylesheet';
     document.head.appendChild(linkCSS);
-    
-    // Load Tawk.to script
-    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-    (function(){
-    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-    s1.async=true;
-    s1.src='https://embed.tawk.to/6694859b32dca6db2caf59da/1i2q2jqj2';
-    s1.charset='UTF-8';
-    s1.setAttribute('crossorigin','*');
-    s0.parentNode.insertBefore(s1,s0);
-    })();
-    
   }, 1000);
 
   document.body.classList.remove('loading');
   
-  // Add the "Logout", "Manage Membership" links, and logo dynamically
-  const membershipLink = document.createElement('a');
-  membershipLink.href = "https://billing.stripe.com/p/login/dR69CV76bgiH0wMeUU";
-  membershipLink.textContent = "Manage Membership";
-  membershipLink.target = '_blank';
-  membershipLink.style.cssText = "text-shadow: 1px 1px 3px black; opacity:0.5; color: #ffffff!important; position: absolute; z-index: 9999999; bottom: 10px; left: 10px; margin-bottom: 10px; margin-right: 10px;";
-  document.body.appendChild(membershipLink);
-
-  const logoImg = document.createElement('img');
-  logoImg.src = "/flamepass-full-logo.png";
-  logoImg.alt = "Flamepass"
-  logoImg.title = "Flamepass"
-  logoImg.style.cssText = "opacity: 0.5; position: absolute; z-index: 9999999; bottom: 75px; left: -3px; height: 40px;";
-  document.body.appendChild(logoImg);
-
+  // Add the "Logout" and "Manage Membership" links dynamically
   const logoutLink = document.createElement('a');
   logoutLink.href = "#";
   logoutLink.textContent = "Logout";
-<<<<<<< HEAD
   logoutLink.style.cssText = "color: #cccccc!important; position: absolute; z-index: 9999999; bottom: 40px; left: 10px; margin-bottom: 10px; margin-right: 10px;";
   logoutLink.onclick = function() {
     localStorage.removeItem('loginData');
     location.reload();
-=======
-  logoutLink.style.cssText = "text-shadow: 1px 1px 3px black; opacity:0.5; color: #ffffff!important; position: absolute; z-index: 9999999; bottom: 40px; left: 10px; margin-bottom: 10px; margin-right: 10px;";
-
-  let logoutConfirmed = false;
-
-  logoutLink.onclick = function(event) {
-    event.preventDefault();
-    if (!logoutConfirmed) {
-      logoutLink.textContent = "Logout - Are you sure?";
-      logoutConfirmed = true;
-      setTimeout(() => {
-        logoutLink.textContent = "Logout";
-        logoutConfirmed = false;
-      }, 3000); // Change text back to "Logout" after 3 seconds
-    } else {
-      localStorage.removeItem('loginData');
-      location.reload();
-    }
->>>>>>> b8a9f2dec8b38338e125d59323e1ee70456c6099
   };
+  document.body.appendChild(logoutLink);
 
-<<<<<<< HEAD
   const membershipLink = document.createElement('a');
   membershipLink.href = "https://billing.stripe.com/p/login/dR69CV76bgiH0wMeUU";
   membershipLink.textContent = "Manage Membership";
   membershipLink.style.cssText = "color: #cccccc!important; position: absolute; z-index: 9999999; bottom: 10px; left: 10px; margin-bottom: 10px; margin-right: 10px;";
   document.body.appendChild(membershipLink);
-=======
-  document.body.appendChild(logoutLink);
->>>>>>> b8a9f2dec8b38338e125d59323e1ee70456c6099
 }
 
 function showError(message, formType = 'login') {
