@@ -50,7 +50,7 @@
             <input type="email" id="email" name="email" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
           </div>
           <div>
-            <label for="token" class="block text-sm font-medium text-gray-700">Token:</label>
+            <label for="token" class="block text-sm font-medium text-gray-700">Key:</label>
             <input type="password" id="token" name="token" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
           </div>
           <div>
@@ -58,20 +58,20 @@
           </div>
         </form>
         <p class="mt-4 text-sm flex justify-between">
-          <a href="#" onclick="showResetForm()" class="text-blue-600 hover:underline">Forgot your token?</a>
+          <a href="#" onclick="showResetForm()" class="text-blue-600 hover:underline">Forgot your Key?</a>
           <a href="#" onclick="showSignUpSection()" class="text-blue-600 hover:underline">Sign Up</a>
         </p>
       </div>
 
       <div id="reset-form" style="display:none;">
-        <h2 class="text-2xl font-bold mb-4">Reset Token</h2>
+        <h2 class="text-2xl font-bold mb-4">Reset Key</h2>
         <form id="reset" onsubmit="return handleReset(event)" class="space-y-4">
           <div>
             <label for="reset-email" class="block text-sm font-medium text-gray-700">Enter your Email:</label>
             <input type="email" id="reset-email" name="reset-email" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
           </div>
           <div>
-            <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700">Reset Token</button>
+            <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700">Reset Key</button>
           </div>
         </form>
         <p class="mt-4 text-sm"><a href="#" onclick="showLoginForm()" class="text-blue-600 hover:underline">Go back</a></p>
@@ -163,8 +163,8 @@ async function handleLogin(event) {
       saveLoginToLocalStorage(email, token);
       loadMainFiles();
     } else {
-      if (data.error === "Invalid token") {
-        showError('Invalid token.');
+      if (data.error === "Invalid Key") {
+        showError('Invalid Key.');
       } else if (data.error === "No customer found with this email") {
         showError('No customer found with this email.');
       } else {
@@ -206,13 +206,13 @@ async function handleReset(event) {
     document.getElementById('loading-message').style.display = 'none';
 
     if (data.success) {
-      alert('A reset token has been sent to your email.');
+      alert('A reset key email has been sent to your email.');
       showLoginForm();
     } else {
-      showError('An error occurred while resetting the token.', 'reset');
+      showError('An error occurred while resetting your key.', 'reset');
     }
   } catch (error) {
-    showError('An error occurred while resetting the token.', 'reset');
+    showError('An error occurred while resetting the key.', 'reset');
   }
 
   updateRateLimit();
