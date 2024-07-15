@@ -13,8 +13,6 @@
   </style>
 </head>
 <body class="bg-blue-50 min-h-screen flex flex-col">
-  <!-- Make below link only show when user is signed in -->
-  <a style="color: white!important;position:absolute;z-index: 9999999;bottom: 0px;right:0px;" href="https://billing.stripe.com/p/login/dR69CV76bgiH0wMeUU">Manage Membership</a>
   <!-- Navigation Bar -->
   <header class="bg-blue-700 text-white shadow-md">
     <div class="container mx-auto flex justify-between items-center py-4 px-6">
@@ -182,6 +180,7 @@ function checkLoginStatus() {
 
 // Call this function when the page loads to check if the user is already logged in
 checkLoginStatus();
+
 function loadMainFiles() {
   // Clear the body except for the root div
   document.body.innerHTML = '<div id="root"></div>';
@@ -214,7 +213,25 @@ function loadMainFiles() {
   }, 1000);
 
   document.body.classList.remove('loading');
+  
+  // Add the "Logout" and "Manage Membership" links dynamically
+  const logoutLink = document.createElement('a');
+  logoutLink.href = "#";
+  logoutLink.textContent = "Logout";
+  logoutLink.style.cssText = "color: #cccccc!important; position: absolute; z-index: 9999999; bottom: 40px; right: 10px; margin-bottom: 10px; margin-right: 10px;";
+  logoutLink.onclick = function() {
+    localStorage.removeItem('loginData');
+    location.reload();
+  };
+  document.body.appendChild(logoutLink);
+
+  const membershipLink = document.createElement('a');
+  membershipLink.href = "https://billing.stripe.com/p/login/dR69CV76bgiH0wMeUU";
+  membershipLink.textContent = "Manage Membership";
+  membershipLink.style.cssText = "color: #cccccc!important; position: absolute; z-index: 9999999; bottom: 10px; right: 10px; margin-bottom: 10px; margin-right: 10px;";
+  document.body.appendChild(membershipLink);
 }
+
 function showError(message, formType = 'login') {
   document.getElementById('loading-message').style.display = 'none';
   const errorDiv = document.getElementById('error-message');
