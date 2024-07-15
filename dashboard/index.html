@@ -288,6 +288,18 @@ function loadMainFiles() {
     linkCSS.href = '/static/css/main.274aab96.css';
     linkCSS.rel = 'stylesheet';
     document.head.appendChild(linkCSS);
+    
+    // Load Tawk.to script
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/6694859b32dca6db2caf59da/1i2q2jqj2';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    
   }, 1000);
 
   document.body.classList.remove('loading');
