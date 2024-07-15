@@ -11,7 +11,7 @@
       pointer-events: none;
     }
   </style>
-
+  <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
 </head>
 <body class="bg-blue-50 min-h-screen flex flex-col">
   <!-- Navigation Bar -->
@@ -81,7 +81,15 @@
         <h2 class="text-2xl font-bold mb-4">Sign Up for Access</h2>
         <p class="text-gray-600 mb-4">Sign up to unlock exclusive math solutions and learning resources.</p>
         <button onclick="redirectToCheckout()" class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 mb-4">Sign Up</button>
+        <button onclick="showPricingSection()" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 mb-4">View Pricing</button>
         <button onclick="hideSignUpSection()" class="w-full bg-gray-300 text-gray-800 py-2 px-4 rounded-md hover:bg-gray-400">Back</button>
+      </div>
+
+      <div id="pricing-section" style="display:none;">
+        <a href="#" onclick="showSignUpSection()" class="text-blue-600 hover:underline">Go back</a>
+        <stripe-pricing-table pricing-table-id="prctbl_1PcvCBGaTtLRmjO9WuVy9Wnm"
+          publishable-key="pk_live_51JhmbwGaTtLRmjO9GVL5T10HQILEWDSCbUR2MKCMpjxJkZSFBErtWeMQTMWqNhKB0bH2O8jqskHDCkyVo1va0TyC00NWcseq2P">
+        </stripe-pricing-table>
       </div>
 
       <div id="loading-message" style="display:none;" class="text-center text-xl">Checking subscription status...</div>
@@ -104,7 +112,6 @@
   <script>
 function redirectToCheckout() {
   window.open("https://buy.stripe.com/7sI3duekygE6fSw003", '_blank').focus();
-
 }
 
 function saveLoginToLocalStorage(email, token) {
@@ -373,6 +380,7 @@ function showSignUpSection() {
   document.getElementById('login-form').style.display = 'none';
   document.getElementById('reset-form').style.display = 'none';
   document.getElementById('signup-section').style.display = 'block';
+  document.getElementById('pricing-section').style.display = 'none'; // Hide the pricing section if it's shown
   document.getElementById('error-message').style.display = 'none';
 }
 
@@ -380,6 +388,15 @@ function hideSignUpSection() {
   document.getElementById('signup-section').style.display = 'none';
   document.getElementById('login-form').style.display = 'block';
   document.getElementById('reset-form').style.display = 'none';
+  document.getElementById('pricing-section').style.display = 'none'; // Hide the pricing section if it's shown
+  document.getElementById('error-message').style.display = 'none';
+}
+
+function showPricingSection() {
+  document.getElementById('login-form').style.display = 'none';
+  document.getElementById('reset-form').style.display = 'none';
+  document.getElementById('signup-section').style.display = 'none';
+  document.getElementById('pricing-section').style.display = 'block';
   document.getElementById('error-message').style.display = 'none';
 }
   </script>
