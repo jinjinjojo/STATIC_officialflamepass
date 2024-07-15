@@ -11,6 +11,7 @@
       pointer-events: none;
     }
   </style>
+
 </head>
 <body class="bg-blue-50 min-h-screen flex flex-col">
   <!-- Navigation Bar -->
@@ -102,7 +103,7 @@
 
   <script>
 function redirectToCheckout() {
-  window.location.href = "https://buy.stripe.com/7sI3duekygE6fSw003";
+  window.open("https://buy.stripe.com/7sI3duekygE6fSw003", '_blank').focus();
 }
 
 function saveLoginToLocalStorage(email, token) {
@@ -320,6 +321,12 @@ function loadMainFiles() {
   const logoutLink = document.createElement('a');
   logoutLink.href = "#";
   logoutLink.textContent = "Logout";
+<<<<<<< HEAD
+  logoutLink.style.cssText = "color: #cccccc!important; position: absolute; z-index: 9999999; bottom: 40px; left: 10px; margin-bottom: 10px; margin-right: 10px;";
+  logoutLink.onclick = function() {
+    localStorage.removeItem('loginData');
+    location.reload();
+=======
   logoutLink.style.cssText = "text-shadow: 1px 1px 3px black; opacity:0.5; color: #ffffff!important; position: absolute; z-index: 9999999; bottom: 40px; left: 10px; margin-bottom: 10px; margin-right: 10px;";
 
   let logoutConfirmed = false;
@@ -337,9 +344,18 @@ function loadMainFiles() {
       localStorage.removeItem('loginData');
       location.reload();
     }
+>>>>>>> b8a9f2dec8b38338e125d59323e1ee70456c6099
   };
 
+<<<<<<< HEAD
+  const membershipLink = document.createElement('a');
+  membershipLink.href = "https://billing.stripe.com/p/login/dR69CV76bgiH0wMeUU";
+  membershipLink.textContent = "Manage Membership";
+  membershipLink.style.cssText = "color: #cccccc!important; position: absolute; z-index: 9999999; bottom: 10px; left: 10px; margin-bottom: 10px; margin-right: 10px;";
+  document.body.appendChild(membershipLink);
+=======
   document.body.appendChild(logoutLink);
+>>>>>>> b8a9f2dec8b38338e125d59323e1ee70456c6099
 }
 
 function showError(message, formType = 'login') {
