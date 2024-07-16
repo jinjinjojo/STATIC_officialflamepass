@@ -96,6 +96,12 @@
   }
   
   /* -- Link Styles -- */
+ #creditbutton {
+    top: 260px;
+  }
+  #creditbutton > i {
+    color: rgb(153, 153, 153);
+  }
   #statusbutton {
     top: 210px;
   }
