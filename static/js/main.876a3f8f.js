@@ -18683,7 +18683,7 @@
                         l(-1), d(w.current.value), g(Ct(w.current.value) ? st : ht), i.currentlyTyping = w.current.value, E()
                     },
                     S = function(e) {
-                        Ct(e) || (e = "https://www.google.com/search?q=" + encodeURIComponent(e)), i.currentlyTyping = null, w.current.blur(), n(Ve(e))
+                        Ct(e) || (e = "https://duckduckgo.com/?q=" + encodeURIComponent(e)), i.currentlyTyping = null, w.current.blur(), n(Ve(e))
                     };
                 (0, r.useEffect)((function() {
                     w.current.value = i.currentlyTyping || "", k()
