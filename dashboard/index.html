@@ -252,11 +252,44 @@ function updateRateLimit() {
   // Save the updated list back to local storage
   localStorage.setItem('requestTimes', JSON.stringify(recentRequests));
 }
+async function checkSubscriptionStatus() {
+  const loginData = getLoginFromLocalStorage();
+  if (!loginData) {
+    return;
+  }
 
-function checkLoginStatus() {
+  const { email, token } = loginData;
+
+  try {
+    const response = await fetch('https://sellix-key-checker-2sfjgz2adq-uc.a.run.app/check-subscription', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email, token })
+    });
+
+    const data = await response.json();
+
+    if (!data.subscribed) {
+      // Clear local storage and show the login form
+      localStorage.removeItem('loginData');
+      document.getElementById('login-form').style.display = 'block';
+    }
+  } catch (error) {
+    console.error('Error checking subscription status:', error);
+    // Optionally handle errors, for example, show an error message
+  }
+}
+
+
+async function checkLoginStatus() {
   const loginData = getLoginFromLocalStorage();
   if (loginData) {
-    // Automatically log in the user if the login data is still valid
+    // Check subscription status
+    await checkSubscriptionStatus();
+
+    // If subscription is still valid, load main files
     loadMainFiles();
   } else {
     document.getElementById('login-form').style.display = 'block';
@@ -264,7 +297,10 @@ function checkLoginStatus() {
 }
 
 // Call this function when the page loads to check if the user is already logged in
-checkLoginStatus();
+window.onload = function() {
+  checkLoginStatus();
+};
+
 
 function loadMainFiles() {
   // Clear the body except for the root div
@@ -297,16 +333,15 @@ function loadMainFiles() {
     document.head.appendChild(linkCSS);
     
     // Load Tawk.to script
-    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-    (function(){
-    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-    s1.async=true;
-    s1.src='https://embed.tawk.to/6694859b32dca6db2caf59da/1i2q2jqj2';
-    s1.charset='UTF-8';
-    s1.setAttribute('crossorigin','*');
-    s0.parentNode.insertBefore(s1,s0);
+    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+    (function() {
+      var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+      s1.async = true;
+      s1.src = 'https://embed.tawk.to/6694859b32dca6db2caf59da/1i2q2jqj2';
+      s1.charset = 'UTF-8';
+      s1.setAttribute('crossorigin', '*');
+      s0.parentNode.insertBefore(s1, s0);
     })();
-    
   }, 1000);
 
   document.body.classList.remove('loading');
@@ -321,8 +356,8 @@ function loadMainFiles() {
 
   const logoImg = document.createElement('img');
   logoImg.src = "/flamepass-full-logo.png";
-  logoImg.alt = "Flamepass"
-  logoImg.title = "Flamepass"
+  logoImg.alt = "Flamepass";
+  logoImg.title = "Flamepass";
   logoImg.style.cssText = "opacity: 0.5; position: absolute; z-index: 9999999; bottom: 75px; left: -3px; height: 40px;";
   document.body.appendChild(logoImg);
 
@@ -332,23 +367,24 @@ function loadMainFiles() {
   logoutLink.style.cssText = "text-shadow: 1px 1px 3px black; opacity:0.5; color: #ffffff!important; position: absolute; z-index: 9999999; bottom: 40px; left: 10px; margin-bottom: 10px; margin-right: 10px;";
   let logoutConfirmed = false;
 
-logoutLink.onclick = function(event) {
-  event.preventDefault();
-  if (!logoutConfirmed) {
-    logoutLink.textContent = "Logout - Are you sure?";
-    logoutConfirmed = true;
-    setTimeout(() => {
-      logoutLink.textContent = "Logout";
-      logoutConfirmed = false;
-    }, 3000); // Change text back to "Logout" after 3 seconds
-  } else {
-    localStorage.removeItem('loginData');
-    location.reload();
-  }
-};
+  logoutLink.onclick = function(event) {
+    event.preventDefault();
+    if (!logoutConfirmed) {
+      logoutLink.textContent = "Logout - Are you sure?";
+      logoutConfirmed = true;
+      setTimeout(() => {
+        logoutLink.textContent = "Logout";
+        logoutConfirmed = false;
+      }, 3000); // Change text back to "Logout" after 3 seconds
+    } else {
+      localStorage.removeItem('loginData');
+      location.reload();
+    }
+  };
 
-document.body.appendChild(logoutLink);
+  document.body.appendChild(logoutLink);
 }
+
 
 function showError(message, formType = 'login') {
   document.getElementById('loading-message').style.display = 'none';
