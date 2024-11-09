@@ -64,14 +64,14 @@
       </div>
 
       <div id="reset-form" style="display:none;">
-        <h2 class="text-2xl font-bold mb-4">Reset Key</h2>
+        <h2 class="text-2xl font-bold mb-4">Email my Key</h2>
         <form id="reset" onsubmit="return handleReset(event)" class="space-y-4">
           <div>
             <label for="reset-email" class="block text-sm font-medium text-gray-700">Enter your Email:</label>
             <input type="email" id="reset-email" name="reset-email" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
           </div>
           <div>
-            <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700">Reset Key</button>
+            <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700">Email my Key</button>
           </div>
         </form>
         <p class="mt-4 text-sm"><a href="#" onclick="showLoginForm()" class="text-blue-600 hover:underline">Go back</a></p>
@@ -193,7 +193,11 @@ async function handleReset(event) {
     return;
   }
 
-  const email = document.getElementById('reset-email').value;
+  const email = document.getElementById("reset-email").value
+  .toLowerCase()
+  .replace(/\s+/g, "")  // removes all whitespace
+  .normalize("NFD")     // normalizes Unicode characters to separate diacritics
+  .replace(/[\u0300-\u036f]/g, ""); // removes diacritical marks
 
   document.getElementById('reset-form').style.display = 'none';
   document.getElementById('loading-message').style.display = 'block';
@@ -213,13 +217,13 @@ async function handleReset(event) {
     document.getElementById('loading-message').style.display = 'none';
 
     if (data.success) {
-      alert('A reset key email has been sent to your email.');
+      alert('Your key has been sent to your email.');
       showLoginForm();
     } else {
-      showError('An error occurred while resetting your key.', 'reset');
+      showError('An error occurred. Try again later', 'reset');
     }
   } catch (error) {
-    showError('An error occurred while resetting the key.', 'reset');
+    showError('An error occurred. Try again later', 'reset');
   }
 
   updateRateLimit();
@@ -332,16 +336,6 @@ function loadMainFiles() {
     linkCSS.rel = 'stylesheet';
     document.head.appendChild(linkCSS);
     
-    // Load Tawk.to script
-    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
-    (function() {
-      var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
-      s1.async = true;
-      s1.src = 'https://embed.tawk.to/6694859b32dca6db2caf59da/1i2q2jqj2';
-      s1.charset = 'UTF-8';
-      s1.setAttribute('crossorigin', '*');
-      s0.parentNode.insertBefore(s1, s0);
-    })();
   }, 1000);
 
   document.body.classList.remove('loading');
